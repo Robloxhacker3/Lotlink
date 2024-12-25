@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bypass Tool</title>
+    <style>
+        body {
+            background-image: url('https://cdn.discordapp.com/attachments/1135923586243248208/1315274736154050611/IMG_1787.webp?ex=676d3a0d&is=676be88d&hm=e23fd3d386f3a7e0f32060681aff9582952083ce97734d8971eb49ef30ccc7d5&');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+            height: 100vh;
+            margin: 0;
+        }
+        input[type="text"] {
+            padding: 10px;
+            width: 300px;
+            font-size: 16px;
+            background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent black background */
+            border: none;
+            color: white;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent black background */
+            border: none;
+            color: white;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: rgba(0, 0, 0, 0.9);
+        }
+        #resultContainer {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .result {
+            margin-top: 10px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Bypass Tool</h1>
+
+    <input type="text" id="textbox" placeholder="Enter 'linkvertise' or 'lootlabs'">
+    <br><br>
+    <input type="text" id="urlTextbox" placeholder="Enter URL to bypass">
+    <br><br>
+    <button id="linkvertiseBtn">Bypass Linkvertise</button>
+    <div id="linkvertiseResult" class="result"></div>
+
+    <br><br>
+    <button id="lootlabsBtn">Bypass Lootlabs</button>
+    <div id="lootlabsResult" class="result"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <script>
+        // Async function to bypass Linkvertise
+        async function bypassLinkvertise(url) {
+            const apiUrl = `https://ethos.kys.gay/api/free/bypass?url=${encodeURIComponent(url)}`;
+
+            try {
+                const response = await axios.get(apiUrl);
+                const data = response.data;
+
+                console.log("Linkvertise API Response:", data);
+
+                if (data.result) {
+                    return data.result;  // Return the bypassed URL
+                } else {
+                    console.error('Linkvertise bypass failed:', data);
+                    return null;
+                }
+            } catch (error) {
+                console.error('Error making Linkvertise bypass request:', error);
+                return null;
+            }
+        }
+
+        // Async function to bypass Lootlabs
+        async function bypassLootlabs(url) {
+            const apiUrl = `https://ethos.kys.gay/api/free/bypass?url=${encodeURIComponent(url)}`;
+
+            try {
+                const response = await axios.get(apiUrl);
+                const data = response.data;
+
+                console.log("Lootlabs API Response:", data);
+
+                if (data.result) {
+                    return data.result;  // Return the bypassed URL
+                } else {
+                    console.error('Lootlabs bypass failed:', data);
+                    return null;
+                }
+            } catch (error) {
+                console.error('Error making Lootlabs bypass request:', error);
+                return null;
+            }
+        }
+
+        // Button event to handle Linkvertise bypass
+        document.getElementById('linkvertiseBtn').addEventListener('click', async function() {
+            var inputText = document.getElementById('textbox').value;
+            if (inputText === 'linkvertise') {
+                var customUrl = document.getElementById('urlTextbox').value;
+                if (customUrl) {
+                    const bypassedUrl = await bypassLinkvertise(customUrl);
+                    if (bypassedUrl) {
+                        document.getElementById('linkvertiseResult').innerHTML = `Bypassed Linkvertise URL: <a href="${bypassedUrl}" target="_blank">${bypassedUrl}</a>`;
+                    } else {
+                        alert('Linkvertise bypass failed.');
+                    }
+                } else {
+                    alert('Please enter a valid URL.');
+                }
+            } else {
+                alert('Incorrect input for Linkvertise.');
+            }
+        });
+
+        // Button event to handle Lootlabs bypass
+        document.getElementById('lootlabsBtn').addEventListener('click', async function() {
+            var inputText = document.getElementById('textbox').value;
+            if (inputText === 'lootlabs') {
+                var customUrl = document.getElementById('urlTextbox').value;
+                if (customUrl) {
+                    const bypassedUrl = await bypassLootlabs(customUrl);
+                    if (bypassedUrl) {
+                        document.getElementById('lootlabsResult').innerHTML = `Bypassed Lootlabs URL: <a href="${bypassedUrl}" target="_blank">${bypassedUrl}</a>`;
+                    } else {
+                        alert('Lootlabs bypass failed.');
+                    }
+                } else {
+                    alert('Please enter a valid URL.');
+                }
+            } else {
+                alert('Incorrect input for Lootlabs.');
+            }
+        });
+    </script>
+
+</body>
+</html>
